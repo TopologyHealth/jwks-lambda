@@ -11,7 +11,11 @@
       },
       "lambda": {
         "runtime": "nodejs18.x",
-        "payload": {},
+        "payload": {
+          "json": {
+            "resource": "f7e6891d-2cb0-4d92-9f7a-6958b971c23f"
+          }
+        },
         "environmentVariables": {}
       }
     }
