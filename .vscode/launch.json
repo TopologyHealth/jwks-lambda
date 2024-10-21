@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "jwks-lambda:index.handler (nodejs18.x)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "${workspaceFolder}/dist",
+        "lambdaHandler": "index.handler"
+      },
+      "lambda": {
+        "runtime": "nodejs18.x",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    }
+  ]
+}
