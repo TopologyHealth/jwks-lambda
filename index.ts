@@ -1,6 +1,7 @@
 import { GetPublicKeyCommand, GetPublicKeyCommandOutput, KMSClient } from '@aws-sdk/client-kms';
 import assert from 'assert';
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { exportJWK, importSPKI, JSONWebKeySet } from 'jose';
 import forge from 'node-forge';
 
 export const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
@@ -11,13 +12,14 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
   const publicKeyAsDer = publicKeyCommandResult.PublicKey
   assert(publicKeyAsDer, "A Der Encoded Public key must be present in the Keygetcommand result")
   const pemPublicKey: string = derToPem(Buffer.from(publicKeyAsDer))
-  const jwkSet = {
+  const publicKey = await importSPKI(pemPublicKey, 'RS256', { extractable: true })
+  const publicJwk = await exportJWK(publicKey)
+  const jwkSet: JSONWebKeySet = {
     keys: [
       {
-        kty: "RSA",
+        ...publicJwk,
+        alg: "RS256",
         kid: keyId,
-        n: Buffer.from(pemPublicKey).toString('base64'),
-        e: 'AQAB'
       }
     ]
   };
@@ -32,6 +34,7 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
 
 function getKeyId(event: APIGatewayEvent) {
   const resource = event.resource;
+  assert(resource, 'Resource must be present in the API gateway event object')
   const keyId = resource.replace('/', '')
   return keyId;
 }

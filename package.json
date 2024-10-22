@@ -22,6 +22,8 @@
     "@aws-sdk/client-kms": "^3.675.0",
     "aws-lambda": "^1.0.7",
     "esbuild": "^0.24.0",
+    "jose": "^5.9.6",
+    "jsonwebtoken": "^9.0.2",
     "node-forge": "^1.3.1"
   }
 }
