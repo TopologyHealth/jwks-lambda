@@ -35,7 +35,7 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
 function getKeyId(event: APIGatewayEvent) {
   const resource = event.resource;
   assert(resource, 'Resource must be present in the API gateway event object')
-  const keyId = resource.replace('/', '')
+  const keyId = resource.split('/').pop()
   return keyId;
 }
 
