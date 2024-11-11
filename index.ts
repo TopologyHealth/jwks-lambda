@@ -1,7 +1,7 @@
 import { GetPublicKeyCommand, GetPublicKeyCommandOutput, KMSClient } from '@aws-sdk/client-kms';
 import assert from 'assert';
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
-import { exportJWK, importSPKI, JSONWebKeySet, JWK } from 'jose';
+import { JSONWebKeySet, JWK } from 'jose';
 import forge from 'node-forge';
 
 export const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
@@ -41,7 +41,7 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
     keys: [
       {
         ...publicJwk,
-        alg: "RS256",
+        alg: "RS384",
         kid: keyId,
       }
     ]
