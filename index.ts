@@ -5,7 +5,7 @@ import { JSONWebKeySet, JWK } from 'jose';
 import forge from 'node-forge';
 
 export const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
-  const region = process.env.API_ID ?? 'us-west-2';
+  const region = process.env.REGION ?? 'us-west-2';
   const keyManagerClient = new KMSClient({ region: region })
   const keyId = getKeyId(event)
   const publicKeyGetCommand = new GetPublicKeyCommand({ KeyId: keyId })

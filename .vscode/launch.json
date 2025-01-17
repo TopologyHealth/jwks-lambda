@@ -13,10 +13,15 @@
         "runtime": "nodejs18.x",
         "payload": {
           "json": {
-            "resource": "/oauth2/jwks/f7e6891d-2cb0-4d92-9f7a-6958b971c23f"
+            "resource": "/oauth2/jwks/f7e6891d-2cb0-4d92-9f7a-6958b971c23f",
+            "pathParams": {
+              "proxy": "10b9b30f-4da1-4518-bee6-9b66a7c84ad2"
+            }
           }
         },
-        "environmentVariables": {}
+        "environmentVariables": {
+          "REGION": "us-west-2"
+        }
       }
     }
   ]
